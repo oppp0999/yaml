@@ -1,0 +1,141 @@
+최근 들어서 Yaml, Yml이라는 포맷이 자주 활용되는 것을 보고 있으면, 개발의 트렌드가 빠르게 변화하는 것을 알 수 있다. 물론 이 트렌드는 개발자의 트렌드하고도 맞닿아 있다. 최근에 개발을 공부해서 개발자가 된 사람들을 보면 남들이 어떻게 코딩을 하는지 그리고, github의 흐름이 어떻게 되는지 또 대규모적인 개발에서 마이크로아키텍처로 변화하는 것을 볼 수 있다.
+
+ 
+
+마이크로 아키텍처의 흐름은 Spring에서 Spring boot로 넘어가게 되었고, 이는 전자정부프레임워크(Egovframework)라는 거대한 프레임워크를 탈피하려는 움직임과 같다. 사실 전자정부프레임워크만 하는 사람 입장에서는 이게 뭔 X소린가 싶을 수도 있지만 지금 연구쪽에서는 yaml과 gradle과 같은 설정 포맷과 빌드도구를 쓰는 중이다.
+
+ 
+
+
+전자정부프레임워크는 yaml의 게시글도 적을 뿐더러 지원도 아직 안하는 모습이다.
+ 
+
+xml 혹은 properties와 maven에 익숙한 사람에게는 이게 또한 곤욕인데 필자는 ant -> maven -> gradle로 넘어가는 이 시기가 또 지랄같다. 개발을 편리하게 하겠다는 것인데 솔직히 기 개발자들에게는 새로운거 배우는게 너무나도 짜증이 나는 상황이기 때문에... 이때문인지 아직 전자정부프레임워크에는 yaml을 지원하지 않는 것 같다.
+
+ 
+
+Yaml
+Yaml은 Yaml Ain't Markup Language라는 뜻으로 'YAML은 마크업 언어가 아니다'라는 재귀적 말장난 같은 이름을 가지고 있다. 이게 무슨 개소린가 싶겠지만, 사실 YAML은 Yet Another Markup Language로 또 다른 마크업 언어라는 이름을 가지고 있다가 마치 NoSQL이 Not Only SQL로 뜻이 변화했듯이, 핵심은 마크업이 아니라 데이터가 중심이라는 보여주기 위해 Yaml Ain't Markup Language가 되어 버렸다.
+
+ 
+
+Yaml은 인간이 보기에 매우 이해하기 쉬운 형태를 가지고 있다.
+
+ 
+
+예를 들어 일반적으로 많이 사용하는 프로퍼티에 있는 데이터는 다음처럼 데이터를 구분한다.
+
+ 
+
+properties
+example.jdbc.url=127.0.0.1
+example.jdbc.port=3306
+example.jdbc.user=user
+example.jdbc.password=password
+ 
+
+yaml 예
+example:
+  jdbc:
+    url: 127.0.0.1
+    port: 3306
+    user: user
+    password: password
+ 
+
+YAML의 경우 properties와 다르게 계층 구조를 잘 나타내고 있으며 동일한 구성이 중복되는 것을 방지할 수 있다. 이로 인해서 가독성이 properties보다 크게 향상 될 수 있다. 만약 위 properties의 내용 중에 몇몇 유사한 속성값이 섞여 있었다면 properties의 경우 동일한 값으로 인지하여 잘못된 데이터를 호출하는 위험도 가질 수 있는데 yaml의 경우 이런 위험을 방지한다.
+
+ 
+
+그외 Yaml의 다양한 설정 예시
+servers:
+  - www.abc.test.com
+  - www.xyz.test.com
+  
+external: [www.abc.test.com, www.xyz.test.com]
+boolean_flag: true
+warrent:
+	ment: >
+    	johnber is 
+        very important
+ 
+
+yaml은 다양한 값들을 입력할 수 있다. map 형태 뿐만 아니라 list 그리고 text의 경우 자유롭게 데이터를 넣을 수 있다.
+
+|는 줄바꿈을 포함시키고, >을 넣을 경우 줄바꿈을 무시한다.
+
+ 
+
+
+
+ 
+
+JSON vs YAML 비교
+JSON 예시
+
+{
+  "json": [
+    "rigid",
+    "better for data interchange"
+  ],
+  "yaml": [
+    "slim and flexible",
+    "better for configuration"
+  ],
+  "object": {
+    "key": "value",
+    "array": [
+      {
+        "null_value": null
+      },
+      {
+        "boolean": true
+      },
+      {
+        "integer": 1
+      }
+    ]
+  },
+  "paragraph": "Blank lines denote\nparagraph breaks\n",
+  "content": "Or we\ncan auto\nconvert line breaks\nto save space"
+}
+ 
+
+YAML 예시
+
+---
+# <- yaml supports comments, json does not
+# did you know you can embed json in yaml?
+# try uncommenting the next line
+# { foo: 'bar' }
+
+json:
+  - rigid
+  - better for data interchange
+yaml:
+  - slim and flexible
+  - better for configuration
+object:
+	key: value
+  array:
+    - null_value:
+    - boolean: true
+    - integer: 1
+paragraph: >
+   Blank lines denote
+
+   paragraph breaks
+content: |-
+   Or we
+   can auto
+   convert line breaks
+   to save space
+JSON과 YAML의 데이터 둘다 확인하여 Yaml의 경우 데이터를 어떻게 넣는지 좀 더 쉽게 예제를 보면 알 수 있을 것이다.
+
+ 
+
+ 
+
+참고자료
+
+https://www.json2yaml.com/
